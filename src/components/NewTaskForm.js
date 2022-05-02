@@ -1,16 +1,17 @@
 import React from "react";
+import CatOption from "./CatOption";
 
-function NewTaskForm() {
+function NewTaskForm({categories, handleCategory, handleDetails, onTaskFormSubmit, details, cate}) {
   return (
-    <form className="new-task-form">
+    <form className="new-task-form" onSubmit={e=>onTaskFormSubmit(e)}>
       <label>
         Details
-        <input type="text" name="text" />
+        <input type="text" name="text" onChange={handleDetails} value={details}/>
       </label>
       <label>
         Category
-        <select name="category">
-          {/* render <option> elements for each category here */}
+        <select name="category" onChange={handleCategory} value={cate}>
+          {categories.filter(cat=>cat==="All"?false:true).map(cat=><CatOption key={cat} cat={cat}/>)}
         </select>
       </label>
       <input type="submit" value="Add task" />
